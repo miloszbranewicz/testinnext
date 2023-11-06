@@ -1,7 +1,7 @@
 import Head from "next/head";
 import React from "react";
 import Header from "./Header";
-import { Container } from "@radix-ui/themes";
+
 
 type Props = {
   children: React.ReactNode;
