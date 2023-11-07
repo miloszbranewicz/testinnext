@@ -1,5 +1,5 @@
 import { db } from "~/server/db";
-import { protectedProcedure, publicProcedure } from "../trpc";
+import { protectedProcedure } from "../trpc";
 import { createTRPCRouter } from "~/server/api/trpc";
 import { z } from "zod";
 
