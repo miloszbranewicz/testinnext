@@ -1,6 +1,7 @@
 import Head from "next/head";
 import React from "react";
 import Header from "./Header";
+import { Toaster } from "react-hot-toast";
 
 
 type Props = {
@@ -20,7 +21,7 @@ export default function Layout({ children }: Props) {
       <main className="min-h-screen container mx-auto py-12">
         {children}
       </main>
-
+      <Toaster />
     </>
   );
 }
