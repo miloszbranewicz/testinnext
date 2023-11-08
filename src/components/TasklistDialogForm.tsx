@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import type { SubmitHandler } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -13,15 +13,21 @@ type Inputs = {
   title: string;
 };
 export default function TasklistDialogForm({ title, id, closeModal }: Props) {
+  const [isPending, setIsPending] = useState(false);
   const getAll = api.taskList.findMany.useQuery();
   const update = api.taskList.updateOne.useMutation({
+    onMutate: () => {
+      setIsPending(true);
+    },
     onError: (error) => {
       toast.error(error.message);
+      setIsPending(false);
       console.log(error);
     },
     onSuccess: async () => {
       await getAll.refetch();
       toast.success("Tasklist updated!");
+      setIsPending(false);
       closeModal();
     },
   });
@@ -38,11 +44,15 @@ export default function TasklistDialogForm({ title, id, closeModal }: Props) {
         <label htmlFor="name">Title</label>
         <input id="name" {...register("title")} className="form-input" />
       </div>
-      <div className="mt-6 flex justify-end">
-        <input
+      <div className="mt-8 flex justify-end">
+        <button
           type="submit"
-          className="inline-flex rounded bg-orange-500 p-2 hover:bg-orange-400"
-        />
+          className="inline-flex min-w-[80px] justify-center rounded bg-orange-500  p-2 hover:bg-orange-400"
+          disabled={isPending}
+        >
+          {isPending && "Saving..."}
+          {!isPending && "Save"}
+        </button>
       </div>
     </form>
   );
