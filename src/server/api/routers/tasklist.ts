@@ -38,4 +38,15 @@ export const tasklistRouter = createTRPCRouter({
     });
     return deleted;
   }),
+  updateOne: protectedProcedure.input(z.object({ id: z.number(), title: z.string() })).mutation(async ({ input }) => {
+    const updated = await db.tasklist.update({
+      where: {
+        id: input.id,
+      },
+      data: {
+        name: input.title,
+      },
+    })
+    return updated;
+  })
 });

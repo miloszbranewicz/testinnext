@@ -5,3 +5,9 @@
 body {
     @apply bg-slate-900 !important;
 }
+
+@layer components {
+    .form-input {
+        @apply rounded p-2;
+    }
+}
