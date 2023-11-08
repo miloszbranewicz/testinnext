@@ -6,6 +6,10 @@ body {
     @apply bg-slate-900 !important;
 }
 
+button:disabled {
+    @apply opacity-50 cursor-not-allowed;
+}
+
 @layer components {
     .form-input {
         @apply rounded p-2;
